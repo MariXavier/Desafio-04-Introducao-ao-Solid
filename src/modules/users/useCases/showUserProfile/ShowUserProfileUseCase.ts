@@ -8,8 +8,14 @@ interface IRequest {
 class ShowUserProfileUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  execute({ user_id }: IRequest): User {
-    // Complete aqui
+  execute({ user_id }: IRequest): User 
+  {
+    const userById = this.usersRepository.findById(user_id);
+    if(!userById)
+    {
+      throw new Error("User does not exist");
+    }
+    return userById;
   }
 }
 
